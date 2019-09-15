@@ -31,6 +31,7 @@
     <Message Text=" MSBuildProjectDefaultTargets  = $(MSBuildProjectDefaultTargets)" Importance="high" />
     <Message Text=" MSBuildExtensionsPath  = $(MSBuildExtensionsPath)" Importance="high" />
     <Message Text=" MSBuildStartupDirectory  = $(MSBuildStartupDirectory)" Importance="high"/>
+    <Message Text=" MSBuildCommunityTasksPath  = $(MSBuildCommunityTasksPath)" Importance="high"/>
   </Target>
   <Target Name="ShowOtherProperties">
     <Message Text=" Environment (SET) Variables*" />

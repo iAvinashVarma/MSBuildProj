@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29306.81
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MuestraStandard", "Muestra\MuestraStandard\MuestraStandard.csproj", "{E4C69EF4-CFB6-4B26-B0FE-CFF179220BF9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MuestraFun", "Muestra\MuestraFun\MuestraFun.csproj", "{AEBC3134-B996-469E-83AB-7B78DC6D6640}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E4C69EF4-CFB6-4B26-B0FE-CFF179220BF9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E4C69EF4-CFB6-4B26-B0FE-CFF179220BF9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E4C69EF4-CFB6-4B26-B0FE-CFF179220BF9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E4C69EF4-CFB6-4B26-B0FE-CFF179220BF9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AEBC3134-B996-469E-83AB-7B78DC6D6640}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AEBC3134-B996-469E-83AB-7B78DC6D6640}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AEBC3134-B996-469E-83AB-7B78DC6D6640}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AEBC3134-B996-469E-83AB-7B78DC6D6640}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {1991A053-D227-417E-AFB7-083298382AF0}
+	EndGlobalSection
+EndGlobal
