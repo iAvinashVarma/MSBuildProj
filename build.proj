@@ -21,6 +21,7 @@
         <CallTarget Targets="Build" />
         <CallTarget Condition="'$(Environment)'=='Production'" Targets="UpdateConfiguration" />
         <CallTarget Condition="'$(Environment)'=='PreProduction'" Targets="UpdateConfiguration" />
+        <CallTarget Targets="CleanConfiguration" />
         <CallTarget Targets="Zip" />
         <CallTarget Targets="Clean" />
     </Target>
@@ -32,6 +33,10 @@
         <XmlUpdate XmlFileName="$(OutputDir)\MuestraStandard.dll.config" Xpath="//configuration/appSettings/add[@key='Debug']/@value" Value="false" />
         <XmlUpdate XmlFileName="$(OutputDir)\MuestraFun.dll.config" Xpath="//configuration/appSettings/add[@key='Environment']/@value" Value="$(Environment)" />
         <XmlUpdate XmlFileName="$(OutputDir)\MuestraStandard.dll.config" Xpath="//configuration/appSettings/add[@key='Environment']/@value" Value="$(Environment)" />
+    </Target>
+    <Target Name="CleanConfiguration">
+        <XmlUpdate XmlFileName="$(OutputDir)\MuestraFun.dll.config" Xpath="//configuration/appSettings/add[@key='Application']" Delete="true" />
+        <XmlUpdate XmlFileName="$(OutputDir)\MuestraStandard.dll.config" Xpath="//configuration/appSettings/add[@key='Application']" Delete="true" />
     </Target>
     <Target Name="Zip">
         <CreateItem Include="$(ArtifactDir)\Muestra\*.*" >
