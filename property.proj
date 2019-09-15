@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" DefaultTargets="Show" ToolsVersion="4.0">
-    <Target Name="Show">
+  <Target Name="Show">
     <CallTarget Targets="ShowReservedProperties" />
     <CallTarget Targets="ShowCustomProperties" />
     <CallTarget Targets="ShowCommandProperties" />

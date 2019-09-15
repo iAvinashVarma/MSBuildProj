@@ -1,8 +1,6 @@
-﻿using System;
-
-namespace MuestraStandard
+﻿namespace MuestraStandard
 {
 	public class Peace
-	{
-	}
+    {
+    }
 }

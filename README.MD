@@ -5,5 +5,6 @@
 ## MSBuild Commands
 
 ```cmd
-MSBuild.exe properties.proj
+> MSBuild.exe property.proj
+> MSBuild.exe build.proj /verbosity:quiet
 ```

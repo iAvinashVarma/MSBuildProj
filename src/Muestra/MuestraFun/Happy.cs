@@ -1,8 +1,6 @@
-﻿using System;
-
-namespace MuestraFun
+﻿namespace MuestraFun
 {
 	public class Happy
-	{
-	}
+    {
+    }
 }
