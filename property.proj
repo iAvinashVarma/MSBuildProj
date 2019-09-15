@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" DefaultTargets="Show" ToolsVersion="4.0">
+    <Target Name="Show">
+    <CallTarget Targets="ShowReservedProperties" />
+    <CallTarget Targets="ShowCustomProperties" />
+    <CallTarget Targets="ShowCommandProperties" />
+    <CallTarget Targets="ShowOtherProperties" />
+  </Target>
+  <Target Name="ShowCustomProperties">
+    <PropertyGroup>
+      <Source_Dir>..\..\</Source_Dir>
+      <Program_Dir>C:\Program Files (x86)\Program\</Program_Dir>
+    </PropertyGroup>
+    <ConvertToAbsolutePath Paths="$(Source_Dir)">
+      <Output TaskParameter="AbsolutePaths" PropertyName="Source_Dir_Abs"/>
+    </ConvertToAbsolutePath>
+    <Message Text='Copying "$(Source_Dir_Abs)" to "$(Program_Dir)".' />
+  </Target>
+  <Target Name="ShowCommandProperties">
+    <Message Text=" Here I Am  " />
+    <Exec Command="dir ." />
+    <Message Text=" " />
+  </Target>
+  <Target Name="ShowReservedProperties" AfterTargets="BeforeBuild">
+    <Message Text=" MSBuildProjectDirectory  = $(MSBuildProjectDirectory)" Importance="high" />
+    <Message Text=" MSBuildProjectFile  = $(MSBuildProjectFile)" Importance="high" />
+    <Message Text=" MSBuildProjectExtension  = $(MSBuildProjectExtension)" Importance="high" />
+    <Message Text=" MSBuildProjectFullPath  = $(MSBuildProjectFullPath)" Importance="high" />
+    <Message Text=" MSBuildProjectName  = $(MSBuildProjectName)" Importance="high" />
+    <Message Text=" MSBuildBinPath  = $(MSBuildBinPath)" Importance="high" />
+    <Message Text=" MSBuildProjectDefaultTargets  = $(MSBuildProjectDefaultTargets)" Importance="high" />
+    <Message Text=" MSBuildExtensionsPath  = $(MSBuildExtensionsPath)" Importance="high" />
+    <Message Text=" MSBuildStartupDirectory  = $(MSBuildStartupDirectory)" Importance="high"/>
+  </Target>
+  <Target Name="ShowOtherProperties">
+    <Message Text=" Environment (SET) Variables*" />
+    <Message Text=" ---------------------------" />
+    <Message Text=" COMPUTERNAME = *$(COMPUTERNAME)*" />
+    <Message Text=" USERDNSDOMAIN = *$(USERDNSDOMAIN)*" />
+    <Message Text=" USERDOMAIN = *$(USERDOMAIN)*" />
+    <Message Text=" USERNAME = *$(USERNAME)*" />
+  </Target>
+</Project>
