@@ -7,7 +7,8 @@
         <MuestraFunProj>$(MuestraProjDir)\MuestraFun\MuestraFun.csproj</MuestraFunProj>
         <MuestraStandardProj>$(MuestraProjDir)\MuestraStandard\MuestraStandard.csproj</MuestraStandardProj>
         <ArtifactDir>$(MSBuildStartupDirectory)\Artifacts\</ArtifactDir>
-        <OutputDir>$(ArtifactDir)\Muestra\</OutputDir>
+        <OutputDir>$(ArtifactDir)\Muestra</OutputDir>
+        <OutputArchiveDir>$(ArtifactDir)\Muestra_Archive</OutputArchiveDir>
     </PropertyGroup>
     <ItemGroup>
         <ProjectToBuild Include="$(MuestraFunProj)">
@@ -18,15 +19,26 @@
         </ProjectToBuild>
     </ItemGroup>
     <Target Name="Start">
+        <CallTarget Targets="Init" />
         <CallTarget Targets="Build" />
-        <CallTarget Condition="'$(Environment)'=='Production'" Targets="UpdateConfiguration" />
-        <CallTarget Condition="'$(Environment)'=='PreProduction'" Targets="UpdateConfiguration" />
+        <CallTarget Targets="Archive" />
+        <CallTarget Condition="'$(Environment)'=='PreProduction' Or '$(Environment)'=='Production'" Targets="UpdateConfiguration" />
         <CallTarget Targets="CleanConfiguration" />
+        <CallTarget Condition="'$(Environment)'=='PreProduction' Or '$(Environment)'=='Production'" Targets="UpdateArchiveConfiguration" />
+        <CallTarget Targets="CleanArchiveConfiguration" />
         <CallTarget Targets="Zip" />
-        <CallTarget Targets="Clean" />
+        <CallTarget Targets="ZipArchive" />
+        <CallTarget Targets="Remove" />
+    </Target>
+    <Target Name="Init">
+        <MakeDir Directories="$(ArtifactDir)\Muestra" />
+        <MakeDir Directories="$(ArtifactDir)\Muestra_Archive" />
     </Target>
     <Target Name="Build">
         <MSBuild Projects="@(ProjectToBuild)"/>
+    </Target>
+    <Target Name="Archive">
+        <Exec Command="xcopy $(OutputDir)\* $(OutputArchiveDir)\ /S /E /I /Y" />
     </Target>
     <Target Name="UpdateConfiguration">
         <XmlUpdate XmlFileName="$(OutputDir)\MuestraFun.dll.config" Xpath="//configuration/appSettings/add[@key='Debug']/@value" Value="false" />
@@ -34,17 +46,34 @@
         <XmlUpdate XmlFileName="$(OutputDir)\MuestraFun.dll.config" Xpath="//configuration/appSettings/add[@key='Environment']/@value" Value="$(Environment)" />
         <XmlUpdate XmlFileName="$(OutputDir)\MuestraStandard.dll.config" Xpath="//configuration/appSettings/add[@key='Environment']/@value" Value="$(Environment)" />
     </Target>
+    <Target Name="UpdateArchiveConfiguration">
+        <XmlUpdate XmlFileName="$(OutputArchiveDir)\MuestraFun.dll.config" Xpath="//configuration/appSettings/add[@key='Debug']/@value" Value="false" />
+        <XmlUpdate XmlFileName="$(OutputArchiveDir)\MuestraStandard.dll.config" Xpath="//configuration/appSettings/add[@key='Debug']/@value" Value="false" />
+        <XmlUpdate XmlFileName="$(OutputArchiveDir)\MuestraFun.dll.config" Xpath="//configuration/appSettings/add[@key='Environment']/@value" Value="$(Environment)_Archive" />
+        <XmlUpdate XmlFileName="$(OutputArchiveDir)\MuestraStandard.dll.config" Xpath="//configuration/appSettings/add[@key='Environment']/@value" Value="$(Environment)__Archive" />
+    </Target>
     <Target Name="CleanConfiguration">
         <XmlUpdate XmlFileName="$(OutputDir)\MuestraFun.dll.config" Xpath="//configuration/appSettings/add[@key='Application']" Delete="true" />
         <XmlUpdate XmlFileName="$(OutputDir)\MuestraStandard.dll.config" Xpath="//configuration/appSettings/add[@key='Application']" Delete="true" />
     </Target>
+    <Target Name="CleanArchiveConfiguration">
+        <XmlUpdate XmlFileName="$(OutputArchiveDir)\MuestraFun.dll.config" Xpath="//configuration/appSettings/add[@key='Application']" Delete="true" />
+        <XmlUpdate XmlFileName="$(OutputArchiveDir)\MuestraStandard.dll.config" Xpath="//configuration/appSettings/add[@key='Application']" Delete="true" />
+    </Target>
     <Target Name="Zip">
-        <CreateItem Include="$(ArtifactDir)\Muestra\*.*" >
-                <Output ItemName="ZipFiles" TaskParameter="Include"/>
+        <CreateItem Include="$(OutputDir)\*.*" >
+            <Output ItemName="ZipFiles" TaskParameter="Include"/>
         </CreateItem>
         <Zip ZipFileName="$(ArtifactDir)\Muestra_$(Environment).zip" WorkingDirectory="$(OutputDir)" Files="@(ZipFiles)" />
     </Target>
-    <Target Name="Clean">
-        <RemoveDir Directories="$(ArtifactDir)\Muestra" />
+    <Target Name="ZipArchive">
+        <CreateItem Include="$(OutputArchiveDir)\*.*" >
+            <Output ItemName="ZipArchiveFiles" TaskParameter="Include"/>
+        </CreateItem>
+        <Zip ZipFileName="$(ArtifactDir)\Muestra_Archive_$(Environment).zip" WorkingDirectory="$(OutputArchiveDir)" Files="@(ZipArchiveFiles)" />
+    </Target>
+    <Target Name="Remove">
+        <RemoveDir Directories="$(OutputDir)" />
+        <RemoveDir Directories="$(OutputArchiveDir)" />
     </Target>
 </Project>

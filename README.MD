@@ -6,6 +6,6 @@
 
 ```cmd
 > MSBuild.exe property.proj
-> MSBuild.exe build.proj /verbosity:quiet /p:Environment=PreProduction
-> MSBuild.exe build.proj /verbosity:quiet /p:Environment=Production
+> MSBuild.exe build.proj /verbosity:quiet /p:Environment=PreProduction /p:AllowedReferenceRelatedFileExtensions=none
+> MSBuild.exe build.proj /verbosity:quiet /p:Environment=Production /p:AllowedReferenceRelatedFileExtensions=none
 ```
