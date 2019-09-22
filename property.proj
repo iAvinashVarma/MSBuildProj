@@ -5,6 +5,7 @@
     <CallTarget Targets="ShowCustomProperties" />
     <CallTarget Targets="ShowCommandProperties" />
     <CallTarget Targets="ShowOtherProperties" />
+    <CallTarget Targets="ShowXmlProperties" />
   </Target>
   <Target Name="ShowCustomProperties">
     <PropertyGroup>
@@ -40,5 +41,19 @@
     <Message Text=" USERDNSDOMAIN = *$(USERDNSDOMAIN)*" />
     <Message Text=" USERDOMAIN = *$(USERDOMAIN)*" />
     <Message Text=" USERNAME = *$(USERNAME)*" />
+  </Target>
+  <Target Name="ShowXmlProperties">
+    <XmlPeek XmlInputPath="Others\Application.xml" Query="/Application/@Name">
+        <Output TaskParameter="Result" PropertyName="Name" />
+    </XmlPeek>
+    <XmlPeek XmlInputPath="Others\Application.xml" Query="/Application/Version/text()">
+        <Output TaskParameter="Result" PropertyName="VersionNumber" />
+    </XmlPeek>
+    <XmlPeek XmlInputPath="Others\Application.xml" Query="/Application/Description/text()">
+        <Output TaskParameter="Result" PropertyName="Description" />
+    </XmlPeek>
+    <Message Text="Name = $(Name)" />
+    <Message Text="Version Number = $(VersionNumber)" />
+    <Message Text="Description = $(Description)" />
   </Target>
 </Project>
